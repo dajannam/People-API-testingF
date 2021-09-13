@@ -21,6 +21,8 @@ public class InitialTestFile {
         response = peopleApiClient.getWelcomeRequest();
         getPeople = peopleApiClient.getPeople();
         getOnePerson = peopleApiClient.getOnePerson();
+        response = peopleApiClient.postNewPerson();
+        response = peopleApiClient.putNewLocation();
 
 
         String body = EntityUtils.toString(response.getEntity());
