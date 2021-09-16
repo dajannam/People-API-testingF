@@ -99,13 +99,13 @@ public class PeopleApiClient {
                 .loadTrustMaterial(new TrustSelfSignedStrategy())
                 .build();
 
-        HttpPut request = new HttpPut(url);
-        request.setHeader(contentType);
-        request.setEntity(new StringEntity(payload.toString()));
+        HttpPut location = new HttpPut(url);
+        location.setHeader(contentType);
+        location.setEntity(new StringEntity(payload.toString()));
 
         HttpClient httpClient = HttpClients.custom().setSSLContext(sslContext).build();
+        HttpResponse response = httpClient.execute(location);
 
-        HttpResponse response = httpClient.execute(request);
         HttpEntity entity = response.getEntity();
         String body = EntityUtils.toString(response.getEntity());
         HttpEntity newEntity = new StringEntity(body, ContentType.get(entity));
