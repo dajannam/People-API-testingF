@@ -1,29 +1,29 @@
-package code.academy.model.request;
+package code.academy.model.response;
 
+import code.academy.model.PersonData;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.awt.*;
+import java.util.List;
 
 @AllArgsConstructor
 @Data
 @Builder
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@SuppressWarnings("unused")
+@SuppressWarnings("unsend")
 @JsonIgnoreProperties(ignoreUnknown = true)
 
+public class GetAllPeopleResponse {
 
-public class PostNewPersonRequest {
-
-    private String name;
-    private String surname;
-    private Integer age;
-    @JsonProperty("isEmployed")
-    private Boolean isEmployed;
-    private String location;
+    private String code;
+    private String message;
+    private List<PersonData> peopleData;
+    private int numberOfPeople;
 
 }

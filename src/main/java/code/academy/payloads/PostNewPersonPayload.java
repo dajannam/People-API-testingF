@@ -1,6 +1,7 @@
 package code.academy.payloads;
 
 import code.academy.model.request.PostNewPersonRequest;
+import org.json.JSONObject;
 
 public class PostNewPersonPayload {
     public PostNewPersonRequest createNewpersonPayload() {
@@ -11,6 +12,18 @@ public class PostNewPersonPayload {
                 .isEmployed(true)
                 .location("Paris")
                 .build();
+    }
+
+    public JSONObject createNewPersonPayloadEmployeAsString(){
+
+        JSONObject personObject = new JSONObject();
+        personObject.put("name","Lara");
+        personObject.put("surname","Stefanova");
+        personObject.put("age",25);
+        personObject.put("isEmployed","kako string");
+        personObject.put("location","Struga");
+
+        return personObject;
     }
 }
 
