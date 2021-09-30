@@ -14,6 +14,19 @@ public class PostNewPersonPayload {
                 .build();
     }
 
+    public PostNewPersonRequest createUpdateLocationPayload(){
+        return PostNewPersonRequest.builder()
+                .location("Milano")
+                .build();
+    }
+
+    public PostNewPersonRequest createUpdateEmptyLocationPayload(){
+        return PostNewPersonRequest.builder()
+                .location("")
+                .build();
+
+    }
+
     public JSONObject createNewPersonPayloadEmployeAsString(){
 
         JSONObject personObject = new JSONObject();

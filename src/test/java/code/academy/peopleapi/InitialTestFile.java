@@ -5,6 +5,7 @@ import code.academy.client.PeopleApiClient;
 import code.academy.model.request.PostNewPersonRequest;
 import code.academy.model.request.UpdatePersonLocationRequest;
 import code.academy.model.response.PostNewPersonResponse;
+import code.academy.model.response.PutNewLocationResponse;
 import code.academy.payloads.PostNewPersonPayload;
 import org.apache.http.HttpResponse;
 import org.apache.http.util.EntityUtils;
@@ -104,8 +105,8 @@ public class InitialTestFile {
                 ("https://people-api1.herokuapp.com/api/person/61489d13498c2b0004aaf464",updateLocationAsString);
 
         String body = EntityUtils.toString(response.getEntity());
-        PostNewPersonResponse updateLocationResponse;
-        updateLocationResponse = jsonStringToObject(body, PostNewPersonResponse.class);
+
+        PutNewLocationResponse putNewLocationResponse = jsonStringToObject(body, PostNewPersonResponse.class);
 
         Assert.assertEquals(response.getStatusLine().getStatusCode(),SC_OK);
 

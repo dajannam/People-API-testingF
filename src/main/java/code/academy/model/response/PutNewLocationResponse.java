@@ -1,5 +1,6 @@
-package code.academy.model.request;
+package code.academy.model.response;
 
+import code.academy.model.PersonData;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
@@ -12,11 +13,13 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@SuppressWarnings("unsend")
 @JsonIgnoreProperties(ignoreUnknown = true)
-@SuppressWarnings("unused")
 
-public class UpdatePersonLocationRequest {
-    private String location;
+public class PutNewLocationResponse {
 
-    }
+    private String code;
+    private String message;
+    private PersonData person;
 
+}
