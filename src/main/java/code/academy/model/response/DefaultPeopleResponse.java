@@ -1,27 +1,22 @@
 package code.academy.model.response;
 
-import code.academy.model.PersonData;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.awt.*;
-import java.util.List;
-
 @AllArgsConstructor
-@Data
-@Builder
 @NoArgsConstructor
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@SuppressWarnings("unsend")
 @JsonIgnoreProperties(ignoreUnknown = true)
+@Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@SuppressWarnings("unused")
 
-public class GetAllPeopleResponse extends DefaultPeopleResponse{
+public class DefaultPeopleResponse {
 
-    private List<PersonData> peopleData;
-    private int numberOfPeople;
-
+    public String code;
+    public String message;
 }

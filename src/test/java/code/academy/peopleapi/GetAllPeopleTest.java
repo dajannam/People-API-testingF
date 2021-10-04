@@ -9,8 +9,11 @@ import org.testng.annotations.*;
 
 
 import static code.academy.utils.ConversionUtils.jsonStringToObject;
-import static code.academy.utils.ConversionUtils.objectToJsonString;
 import static org.apache.http.HttpStatus.*;
+import static code.academy.config.HostNameConfig.*;
+import static code.academy.config.EndPointConfig.*;
+import static code.academy.utils.TestDataUtils.ResponseCode.*;
+import static code.academy.utils.TestDataUtils.ResponseMessage.*;
 
 public class GetAllPeopleTest {
 
@@ -25,13 +28,13 @@ public class GetAllPeopleTest {
     @Test
     public void GetAllPerson() throws Exception{
 
-        response = peopleApiClient.httpGet("https://people-api1.herokuapp.com/api/people");
+        response = peopleApiClient.httpGet(HOSTNAME + GET_ALL_ENDPOINT);
         String body = EntityUtils.toString(response.getEntity());
         getAllPeopleResponse = jsonStringToObject(body, GetAllPeopleResponse.class);
 
         Assert.assertEquals(response.getStatusLine().getStatusCode(), SC_OK);
-        Assert.assertEquals(getAllPeopleResponse.getCode(), "P200");
-        Assert.assertEquals(getAllPeopleResponse.getMessage(), "List of people successfully fetched");
+        Assert.assertEquals(getAllPeopleResponse.getMessage(), LIST_OF_PEOPLE);
+        Assert.assertEquals(getAllPeopleResponse.getCode(), OKAY);
         Assert.assertNotNull(getAllPeopleResponse.getNumberOfPeople());
         Assert.assertNotNull(getAllPeopleResponse.getPeopleData().size());
 
@@ -41,7 +44,7 @@ public class GetAllPeopleTest {
     @Test
     public void getAllPeopleNumberOfPeopleListCounterFieldTest() throws Exception{
 
-        response = peopleApiClient.httpGet("https://people-api1.herokuapp.com/api/people");
+        response = peopleApiClient.httpGet(HOSTNAME + GET_ALL_ENDPOINT);
         String body = EntityUtils.toString(response.getEntity());
         getAllPeopleResponse = jsonStringToObject(body, GetAllPeopleResponse.class);
 

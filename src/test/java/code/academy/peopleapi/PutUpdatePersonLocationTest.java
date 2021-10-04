@@ -15,6 +15,10 @@ import org.testng.annotations.Test;
 import static code.academy.utils.ConversionUtils.jsonStringToObject;
 import static code.academy.utils.ConversionUtils.objectToJsonString;
 import static org.apache.http.HttpStatus.*;
+import static code.academy.config.EndPointConfig.*;
+import static code.academy.config.HostNameConfig.*;
+import static code.academy.utils.TestDataUtils.ResponseMessage.*;
+import static code.academy.utils.TestDataUtils.ResponseCode.*;
 
 public class PutUpdatePersonLocationTest  {
 
@@ -38,7 +42,7 @@ public class PutUpdatePersonLocationTest  {
         PostNewPersonRequest createNewPersonRequest = updateLocationPayload.createNewpersonPayload();
         String requestBody = objectToJsonString(createNewPersonRequest);
 
-        HttpResponse createPersonResponse = peopleApiClient.httpPost("https://people-api1.herokuapp.com/api/person", requestBody);
+        HttpResponse createPersonResponse = peopleApiClient.httpPost(HOSTNAME + POST_ENDPOINT, requestBody);
         Assert.assertEquals(createPersonResponse.getStatusLine().getStatusCode(), SC_CREATED);
 
         String responseBody = EntityUtils.toString(createPersonResponse.getEntity());
@@ -53,14 +57,14 @@ public class PutUpdatePersonLocationTest  {
 
         String requestBody = objectToJsonString(updateLocationRequest);
 
-        response = peopleApiClient.httpPut("https://people-api1.herokuapp.com/api/person/" + createPersonID, requestBody);
+        response = peopleApiClient.httpPut(HOSTNAME + PUT_ENDPOINT + createPersonID, requestBody);
 
         String resposneBody = EntityUtils.toString(response.getEntity());
         putUpdateLocationResponse = jsonStringToObject(resposneBody, PutNewLocationResponse.class);
 
         Assert.assertEquals(response.getStatusLine().getStatusCode(), SC_OK);
-        Assert.assertEquals(putUpdateLocationResponse.getCode(), "P200");
-        Assert.assertEquals(putUpdateLocationResponse.getMessage(), "Person's location succesfully updated !");
+        Assert.assertEquals(putUpdateLocationResponse.getMessage(), UPDATE_LOCATION);
+        Assert.assertEquals(putUpdateLocationResponse.getCode(),OKAY);
         Assert.assertEquals(putUpdateLocationResponse.getPerson().getLocation(), updateLocationRequest.getLocation());
 
     }
@@ -70,15 +74,14 @@ public class PutUpdatePersonLocationTest  {
 
         String requestBody = objectToJsonString(updateLocationRequest);
 
-        response = peopleApiClient.httpPut("https://people-api1.herokuapp.com/api/person/" + invalidId, requestBody);
+        response = peopleApiClient.httpPut(HOSTNAME + PUT_ENDPOINT + invalidId, requestBody);
 
         String resposneBody = EntityUtils.toString(response.getEntity());
         putUpdateLocationResponse = jsonStringToObject(resposneBody, PutNewLocationResponse.class);
 
         Assert.assertEquals(response.getStatusLine().getStatusCode(), SC_NOT_FOUND);
 
-        Assert.assertEquals(putUpdateLocationResponse.getMessage(), "Person with id="+ invalidId
-                +" not found");
+        Assert.assertEquals(putUpdateLocationResponse.getMessage(), INCORRECT_ID_PART_1 + invalidId + INCORRECT_ID_PART_2);
     }
 
     @Test
@@ -87,14 +90,14 @@ public class PutUpdatePersonLocationTest  {
         PostNewPersonRequest updateEmptyLocationRequest = updateLocationPayload.createUpdateEmptyLocationPayload();
         String requestBody = objectToJsonString(updateEmptyLocationRequest);
 
-        response = peopleApiClient.httpPut("https://people-api1.herokuapp.com/api/person/" + invalidId, requestBody);
+        response = peopleApiClient.httpPut(HOSTNAME + PUT_ENDPOINT + invalidId, requestBody);
 
         String resposneBody = EntityUtils.toString(response.getEntity());
         putUpdateLocationResponse = jsonStringToObject(resposneBody, PutNewLocationResponse.class);
 
         Assert.assertEquals(response.getStatusLine().getStatusCode(), SC_BAD_REQUEST);
-        Assert.assertEquals(putUpdateLocationResponse.getCode(), "P400");
-        Assert.assertEquals(putUpdateLocationResponse.getMessage(), "Person's location must be provided to be updated !");
+        Assert.assertEquals(putUpdateLocationResponse.getCode(),BADREQUEST);
+        Assert.assertEquals(putUpdateLocationResponse.getMessage(),EMPTY_BODY);
 
     }
 
@@ -104,21 +107,21 @@ public class PutUpdatePersonLocationTest  {
         updateEmptyLocationRequest.setLocation(null);
         String requestBody = objectToJsonString(updateEmptyLocationRequest);
 
-        response = peopleApiClient.httpPut("https://people-api1.herokuapp.com/api/person/" + invalidId, requestBody);
+        response = peopleApiClient.httpPut(HOSTNAME + PUT_ENDPOINT + invalidId, requestBody);
 
         String resposneBody = EntityUtils.toString(response.getEntity());
         putUpdateLocationResponse = jsonStringToObject(resposneBody, PutNewLocationResponse.class);
 
         Assert.assertEquals(response.getStatusLine().getStatusCode(), SC_BAD_REQUEST);
-        Assert.assertEquals(putUpdateLocationResponse.getCode(), "P400");
-        Assert.assertEquals(putUpdateLocationResponse.getMessage(), "Request body cannot be empty");
+        Assert.assertEquals(putUpdateLocationResponse.getCode(),BADREQUEST);
+        Assert.assertEquals(putUpdateLocationResponse.getMessage(),EMPTY_BODY);
 
     }
 
     @AfterClass
     public void afterClass() throws Exception{
 
-        HttpResponse deleteResponse = peopleApiClient.httpDelete("https://people-api1.herokuapp.com/api/person/" + createPersonID);
+        HttpResponse deleteResponse = peopleApiClient.httpDelete(HOSTNAME + PUT_ENDPOINT + createPersonID);
         Assert.assertEquals(deleteResponse.getStatusLine().getStatusCode(), SC_OK);
 
     }

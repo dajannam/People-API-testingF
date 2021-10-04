@@ -9,14 +9,13 @@ import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @Data
-@Builder
-@NoArgsConstructor
+
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @SuppressWarnings("unsend")
 @JsonIgnoreProperties(ignoreUnknown = true)
 
-public class GetMessageResponse {
+public class GetMessageResponse extends DefaultPeopleResponse {
 
-    private String message;
 
 }

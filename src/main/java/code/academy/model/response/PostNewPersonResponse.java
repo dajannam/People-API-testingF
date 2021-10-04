@@ -10,15 +10,12 @@ import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @Data
-@Builder
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @SuppressWarnings("unused")
 @JsonIgnoreProperties(ignoreUnknown = true)
 
-public class PostNewPersonResponse {
+public class PostNewPersonResponse extends DefaultPeopleResponse {
 
-    private String code;
-    private String message;
     private  PersonData personData;
 }

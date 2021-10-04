@@ -16,10 +16,8 @@ import lombok.NoArgsConstructor;
 @SuppressWarnings("unsend")
 @JsonIgnoreProperties(ignoreUnknown = true)
 
-public class PutNewLocationResponse {
+public class PutNewLocationResponse extends DefaultPeopleResponse {
 
-    private String code;
-    private String message;
     private PersonData person;
 
 }
